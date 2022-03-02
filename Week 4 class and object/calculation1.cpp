@@ -22,7 +22,7 @@ class calculation
     int max()
     {
         return std::max(num1,num2);
-        /or *if(num1>num2)
+        /* orif(num1>num2)
              return num1;
              else
              return num2;*/
