@@ -21,10 +21,11 @@ class calculation
     }
     int max()
     {
-        if(num1>num2)
-        return num1;
-        else
-        return num2;
+        return std::max(num1,num2);
+        /or *if(num1>num2)
+             return num1;
+             else
+             return num2;*/
     }
 };
 
