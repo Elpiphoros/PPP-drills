@@ -48,3 +48,56 @@ int main()
     
     return 0;
 }
+
+
+//another method to input the number
+
+#include <iostream>
+#include<cmath>
+using namespace std;
+
+//creating a class
+
+class calculation
+{
+    private:
+    int num1;
+    int num2;
+    
+    public:
+    void read()
+    {
+        cout << "number 1 = ";
+        cin >> num1;
+        cout << "number 2 = ";
+        cin >> num2;
+    }
+    int sum()
+    {
+        return num1 + num2;
+    }
+    int diff()
+    {
+        return num1 - num2;
+    }
+    int max()
+    {
+        return std::max(num1,num2);
+    }
+};
+
+int main()
+{
+    //creating objects
+    calculation integer;
+    
+    //calling member function
+    integer.read();
+    
+    cout << "sum = " << integer.sum() << endl;
+    cout << "difference = " << integer.diff() <<endl;
+    cout << "maximal number = " << integer.max() <<endl;
+    
+    return 0;
+
+}
