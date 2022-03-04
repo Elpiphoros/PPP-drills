@@ -31,7 +31,7 @@ int main()
     rectangle.breadth = 15;
     rectangle.height = 10;
     /*or using another way to initialization:
-    shape rectangle{12.2,15,10};
+    shape rectangle{12.2,15,10};*/
     
     //calling member function
     cout << "Area of Rectangle = " << rectangle.cal_area() << endl;
