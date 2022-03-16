@@ -7,7 +7,7 @@ int main()
 {
     vector<int> num{1, 2, 3, 4, 5};
     
-    cout << "Initial Element";
+    cout << "Initial Element: ";
     
     for(const int& i :num)
     {
@@ -18,7 +18,7 @@ int main()
     num.push_back(6);
     num.push_back(7);
     
-    cout << "\nUpdate Element";
+    cout << "\nUpdate Element: ";
     
     for(const int& i :num)
     {
