@@ -4,9 +4,11 @@
 using namespace std;
 
 int main()
-{
-    vector<int> num{1, 2, 3, 4, 5};
+{   
+    //define a vector
+    vector<int> num{1, 2, 3, 4, 5}; 
     
+    //traversing a vector through a range-for-loop
     cout << "Initial Element: ";
     
     for(const int& i :num)
@@ -14,7 +16,7 @@ int main()
         cout << i << " ";
     }
     
-    //add integer 6 and 7
+    //add elements(growing the vector
     num.push_back(6);
     num.push_back(7);
     
