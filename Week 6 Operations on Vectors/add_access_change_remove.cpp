@@ -27,7 +27,7 @@ int main()
         cout << i << " ";
     }
     
-    //access the second Element
+    //access the 2nd & 3rd Element
     
     cout << "\nthe second element is ";
     cout << num.at(1) <<endl;
