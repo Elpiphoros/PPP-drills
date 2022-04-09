@@ -16,7 +16,7 @@ int main()
         cout << i << " ";
     }
     
-    //add elements(growing the vector
+    //add elements(growing the vector)
     num.push_back(6);
     num.push_back(7);
     
