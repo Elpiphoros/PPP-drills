@@ -136,19 +136,21 @@ double expression()
 {
     double left = term();      // read and evaluate a Term
     Token t = ts.get();        // get the next token from token stream
-    while (true) {
-        switch (t.kind) {
-        case '+':
-            left += term();    // evaluate Term and add
-            t = ts.get();
-            break;
-        case '-':
-            left -= term();    // evaluate Term and subtract
-            t = ts.get();
-            break;
-        default:
-            ts.putback(t);     // put t back into the token stream
-            return left;       // finally: no more + or -: return the answer
+    while (true)
+    {
+        switch (t.kind) 
+        {
+            case '+':
+                left += term();    // evaluate Term and add
+                t = ts.get();
+                break;
+            case '-':
+                left -= term();    // evaluate Term and subtract
+                t = ts.get();
+                break;
+            default:
+                ts.putback(t);     // put t back into the token stream
+                return left;       // finally: no more + or -: return the answer
         }
     }
 }
@@ -158,7 +160,8 @@ int main()
 try
 {   
     cout >> "Welcome to our simple calculator. Please enter expressions using floating-point numbers.\n";
-    while (cin) {
+    while (cin) 
+    {
         Token t = ts.get();
         if (t.kind == 'x') break; // 'q' for quit
         if (t.kind == '=')        // ';' for "print now"
@@ -169,14 +172,16 @@ try
     }
     keep_window_open();
 }
-catch (exception& e) {
-    cerr << "error: " << e.what() << '\n';
-    keep_window_open();
-    return 1;
-}
-catch (...) {
-    cerr << "Oops: unknown exception!\n";
-    keep_window_open();
-    return 2;
-}
+catch (exception& e) 
+    {
+        cerr << "error: " << e.what() << '\n';
+        keep_window_open();
+        return 1;
+    }
+catch (...) 
+    {
+        cerr << "Oops: unknown exception!\n";
+        keep_window_open();
+        return 2;
+    }
 }
