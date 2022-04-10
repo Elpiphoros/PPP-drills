@@ -108,7 +108,8 @@ double term()
 {
     double left = primary();
     Token t = ts.get();        // get the next token from token stream
-    while (true) {
+    while (true) 
+    {   
         switch (t.kind) {
         case '*':
             left *= primary();
@@ -123,6 +124,7 @@ double term()
             break;
         }
         default:
+        {    
             ts.putback(t);     // put t back into the token stream
             return left;
         }
@@ -152,10 +154,10 @@ double expression()
 }
 //------------------------------------------------------------------------------
 int main()
-
+{
 try
 {   
-    cin >> "Welcome to our simple calculator. Please enter expressions using floating-point numbers.\n";
+    cout >> "Welcome to our simple calculator. Please enter expressions using floating-point numbers.\n";
     while (cin) {
         Token t = ts.get();
         if (t.kind == 'x') break; // 'q' for quit
@@ -177,4 +179,4 @@ catch (...) {
     keep_window_open();
     return 2;
 }
-//------------------------------------------------------------------------------
+}
