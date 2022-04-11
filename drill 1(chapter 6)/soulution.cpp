@@ -23,22 +23,25 @@ class Token
 
 //------------------------------------------------------------------------------
 
-class Token_stream {
-public:
-    Token_stream();   // make a Token_stream that reads from cin
-    Token get();      // get a Token (get() is defined elsewhere)
-    void putback(Token t);    // put a Token back
-private:
-    bool full {false};        // is there a Token in the buffer?
-    Token buffer;     // here is where we keep a Token put back using putback()
+class Token_stream
+{
+    public:
+        Token_stream();   // make a Token_stream that reads from cin
+        Token get();      // get a Token (get() is defined elsewhere)
+        void putback(Token t);    // put a Token back
+    private:
+        bool full {false};        // is there a Token in the buffer?
+        Token buffer;     // here is where we keep a Token put back using putback()
 };
+
 
 //------------------------------------------------------------------------------
 
 // The putback() member function puts its argument back into the Token_stream's buffer:
 void Token_stream::putback(Token t)
 {
-    if (full) error("putback() into a full buffer");
+    if (full) 
+        error("putback() into a full buffer");
     buffer = t;       // copy t to buffer
     full = true;      // buffer is now full
 }
@@ -47,31 +50,33 @@ void Token_stream::putback(Token t)
 
 Token Token_stream::get()
 {
-    if (full) {       // do we already have a Token ready?
-        // remove token from buffer
-        full = false;
-        return buffer;
+    if (full) // do we already have a Token ready?
+    {       
+            // remove token from buffer
+            full = false;
+            return buffer;
     }
 
     char ch;
     cin >> ch;    // note that >> skips whitespace (space, newline, tab, etc.)
 
-    switch (ch) {
-    case '=':    // for "print"
-    case 'x':    // for "quit"
-    case '(': case ')': case '+': case '-': case '*': case '/':
-        return Token(ch);        // let each character represent itself
-    case '.':
-    case '0': case '1': case '2': case '3': case '4':
-    case '5': case '6': case '7': case '8': case '9':
+    switch (ch)
     {
-        cin.putback(ch);         // put digit back into the input stream
-        double val;
-        cin >> val;              // read a floating-point number
-        return Token('8', val);   // let '8' represent "a number"
-    }
-    default:
-        error("Bad token");
+        case ';':    // for "print"
+        case 'q':    // for "quit"
+        case '(': case ')': case '+': case '-': case '*': case '/':
+            return Token{ch};        // let each character represent itself
+        case '.':
+        case '0': case '1': case '2': case '3': case '4':
+        case '5': case '6': case '7': case '8': case '9':
+            {
+                cin.putback(ch);         // put digit back into the input stream
+                double val;
+                cin >> val;              // read a floating-point number
+                return Token('8', val);   // let '8' represent "a number"
+            }
+        default:
+            error("Bad token");
     }
 }
 
@@ -89,18 +94,19 @@ double expression();    // declaration so that primary() can call expression()
 double primary()
 {
     Token t = ts.get();
-    switch (t.kind) {
-    case '(':    // handle '(' expression ')'
+    switch (t.kind) 
     {
-        double d = expression();
-        t = ts.get();
-        if (t.kind != ')') error("')' expected);
-            return d;
-    }
-    case '8':            // we use '8' to represent a number
-        return t.value;  // return the number's value
-    default:
-        error("primary expected");
+        case '(':    // handle '(' expression ')'
+            {
+                double d = expression();
+                t = ts.get();
+                if (t.kind != ')') error("')' expected");
+                    return d;
+            }
+        case '8':            // we use '8' to represent a number
+            return t.value;  // return the number's value
+        default:
+            error("primary expected");
     }
 }
 //------------------------------------------------------------------------------
@@ -119,7 +125,8 @@ double term()
         case '/':
         {
             double d = primary();
-            if (d == 0) error("divide by zero");
+            if (d == 0) 
+                error("divide by zero");
             left /= d;
             t = ts.get();
             break;
@@ -164,8 +171,9 @@ try
     while (cin) 
     {
         Token t = ts.get();
-        if (t.kind == 'x') break; // 'q' for quit
-        if (t.kind == '=')        // ';' for "print now"
+        if (t.kind == 'q') 
+            break; // 'q' for quit
+        if (t.kind == ';')        // ';' for "print now"
             cout << "=" << val << '\n';
         else
             ts.putback(t);
