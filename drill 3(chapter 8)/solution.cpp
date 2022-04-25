@@ -4,7 +4,7 @@ Each should have the body { int temp; temp = a, a=b; b=temp; } where a and b are
 Try calling each swap like this
 
 int x = 7;
-int y =9;
+int y = 9;
 swap_?(x,y); // replace ? by v, r, or cr
 swap_?(7,9);
 const int cx = 7;
@@ -18,9 +18,35 @@ swap_?(7.7,9.9);
 
 Which functions and calls compiled, and why? 
 After each swap that compiled, print the value of the arguments after the call to see if they were actually swapped.
-If you are surprised by a result, consult §8.6.
+If you are surprised by a result, consult §8swap_cr(const int&, const int&)swap_cr(const int&, const int&).6.
 */
 
 #include "std_lib_facilities.h"
 
-swap_v(int
+swap_v(int a, int b)
+{
+    int temp;
+    temp = a;
+    a = b;
+    b = temp;
+}
+
+swap_r(int &a, int &b)
+{
+    int temp;
+    temp = a;
+    a = b;
+    b = temp;
+}
+
+swap_cr(const int &a, const int &b)
+{
+        
+}
+
+int main
+{
+    int x = 7;
+    int y
+    return 0;
+}
