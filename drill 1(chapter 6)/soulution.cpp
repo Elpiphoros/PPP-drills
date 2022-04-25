@@ -62,7 +62,7 @@ Token Token_stream::get()
     switch (ch)
     {
         case 'x':    // for "quit"
-        case ';':    // for "print"
+        case '=':    // for "print"
         case '(': 
         case ')': 
         case '+': 
@@ -168,8 +168,11 @@ double expression()
     }
 }
 
-
 int main()
+{
+	cout << "Welcome to our simple calculator." << endl;
+	cout << "Please enter expressions using floating-point numbers." << endl;
+	cout << "enter 'x' to leave, and enter '=' to print the result!" << endl;
 try
 {   
     double val = 0;
@@ -179,8 +182,8 @@ try
         Token t = ts.get();
         if (t.kind == 'x') 
             break; // 'x' for quit
-        if (t.kind == ';')        // ';' for "print now"
-            cout << "=" << val << '\n';
+        if (t.kind == '=')        // '=' for "print now"
+            cout << val << '\n';
         else
             ts.putback(t);
         val = expression();
@@ -199,4 +202,5 @@ catch (...)
     cerr << "Oops: unknown exception!\n";
     keep_window_open();
     return 2;
+}
 }
