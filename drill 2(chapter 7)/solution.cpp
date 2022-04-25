@@ -21,7 +21,9 @@ class Token
 	Token(char ch, double val) :kind(ch), value(val) { }
 };
 
-class Token_stream {
+class Token_stream
+{
+	private:
 	bool full;
 	Token buffer;
 public:
