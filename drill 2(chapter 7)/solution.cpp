@@ -12,7 +12,8 @@
 
 #include "std_lib_facilities.h"
 
-struct Token {
+class Token
+{
 	char kind;
 	double value;
 	string name;
