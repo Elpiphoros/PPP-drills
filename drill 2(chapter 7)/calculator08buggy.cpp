@@ -130,20 +130,22 @@ double expression();
 double primary()
 {
 	Token t = ts.get();
-	switch (t.kind) {
-	case '(':
-	{	double d = expression();
-	t = ts.get();
-	if (t.kind != ')') error("'(' expected");
-	}
-	case '-':
-		return -primary();
-	case number:
-		return t.value;
-	case name:
-		return get_value(t.name);
-	default:
-		error("primary expected");
+	switch (t.kind) 
+	{
+		case '(':
+		{	
+			double d = expression();
+			t = ts.get();
+			if (t.kind != ')') error("'(' expected");
+		}
+		case '-':
+			return -primary();
+		case number:
+			return t.value; //return number's value
+		case name:
+			return get_value(t.name);
+		default:
+			error("primary expected");
 	}
 }
 
