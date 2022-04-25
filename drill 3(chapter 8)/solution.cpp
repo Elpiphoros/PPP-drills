@@ -23,7 +23,7 @@ If you are surprised by a result, consult §8swap_cr(const int&, const int&)swap
 
 #include "std_lib_facilities.h"
 
-swap_v(int a, int b)
+void swap_v(int a, int b)
 {
     int temp;
     temp = a;
@@ -31,7 +31,7 @@ swap_v(int a, int b)
     b = temp;
 }
 
-swap_r(int &a, int &b)
+void swap_r(int &a, int &b)
 {
     int temp;
     temp = a;
@@ -39,7 +39,7 @@ swap_r(int &a, int &b)
     b = temp;
 }
 
-swap_cr(const int &a, const int &b)
+void swap_cr(const int &a, const int &b)
 {
         
 }
@@ -47,6 +47,6 @@ swap_cr(const int &a, const int &b)
 int main
 {
     int x = 7;
-    int y
+    int y = 9;
     return 0;
 }
