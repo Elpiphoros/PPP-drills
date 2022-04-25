@@ -17,8 +17,10 @@ class Token
 	char kind;
 	double value;
 	string name;
-	Token(char ch) :kind(ch), value(0) { }
-	Token(char ch, double val) :kind(ch), value(val) { }
+	// three constructors
+	Token(char ch) :kind(ch), value(0) {}
+	Token(char ch, double val) :kind(ch), value(val) {}
+	Token(char ch, string n): kind(ch), name(n) {}
 };
 
 class Token_stream
@@ -27,7 +29,7 @@ class Token_stream
 		Token_stream() :full(0), buffer(0) { }
 		Token get();
 		void unget(Token t) { buffer = t; full = true; }
-		void ignore(char);
+		void ignore(char); // discard characters up to and including a c
 	private:
 		bool full;
 		Token buffer;
@@ -72,7 +74,8 @@ Token Token_stream::get()
 	return Token(number, val);
 	}
 	default:
-		if (isalpha(ch)) {
+		if (isalpha(ch)) // isalpha(ch). This call answers the question “Is ch a letter?”
+		{
 			string s;
 			s += ch;
 			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s = ch;
@@ -85,23 +88,27 @@ Token Token_stream::get()
 	}
 }
 
-void Token_stream::ignore(char c)
+void Token_stream::ignore(char c) // c represents the kind of Token
 {
-	if (full && c == buffer.kind) {
+	// first look in buffer:
+	if (full && c == buffer.kind) 
+	{
 		full = false;
 		return;
 	}
 	full = false;
-
-	char ch;
+	
+	// now search input:
+	char ch = 0;
 	while (cin >> ch)
 		if (ch == c) return;
 }
 
-struct Variable {
+class Variable
+{
 	string name;
 	double value;
-	Variable(string n, double v) :name(n), value(v) { }
+	Variable(string n, double v) :name(n), value(v) {}
 };
 
 vector<Variable> names;
