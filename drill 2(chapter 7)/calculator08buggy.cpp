@@ -26,6 +26,7 @@ public:
 	void ignore(char);
 };
 
+//Symbolic constants
 const char let = 'L';
 const char quit = 'Q';
 const char print = ';';
@@ -60,9 +61,9 @@ Token Token_stream::get()
 	case '8':
 	case '9':
 	{	cin.unget();
-	double val;
-	cin >> val;
-	return Token(number, val);
+		double val;
+		cin >> val;
+		return Token(number, val);
 	}
 	default:
 		if (isalpha(ch)) {
@@ -223,13 +224,15 @@ void clean_up_mess()
 const string prompt = "> ";
 const string result = "= ";
 
-void calculate()
+void calculate() // expression evaluation loop
 {
 	while (true) try {
 		cout << prompt;
 		Token t = ts.get();
-		while (t.kind == print) t = ts.get();
-		if (t.kind == quit) return;
+		while (t.kind == print) 
+			t = ts.get();
+		if (t.kind == quit) 
+			return;
 		ts.unget(t);
 		cout << result << statement() << endl;
 	}
