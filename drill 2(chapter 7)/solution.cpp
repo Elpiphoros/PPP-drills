@@ -116,25 +116,28 @@ vector<Variable> names;
 double get_value(string s)
 {
 	for (int i = 0; i < names.size(); ++i)
-		if (names[i].name == s) return names[i].value;
-	error("get: undefined name ", s);
+		if (names[i].name == s)
+			return names[i].value;
+		error("get: undefined name ", s);
 }
 
 void set_value(string s, double d)
 {
-	for (int i = 0; i <= names.size(); ++i)
-		if (names[i].name == s) {
+	for (int i = 0; i < names.size(); ++i)
+		if (names[i].name == s) 
+		{
 			names[i].value = d;
 			return;
 		}
-	error("set: undefined name ", s);
+		error("set: undefined name ", s);
 }
 
 bool is_declared(string s)
 {
 	for (int i = 0; i < names.size(); ++i)
-		if (names[i].name == s) return true;
-	return false;
+		if (names[i].name == s) 
+			return true;
+		return false;
 }
 
 Token_stream ts;
@@ -144,41 +147,49 @@ double expression();
 double primary()
 {
 	Token t = ts.get();
-	switch (t.kind) {
-	case '(':
-	{	double d = expression();
-	t = ts.get();
-	if (t.kind != ')') error("'(' expected");
-	}
-	case '-':
-		return -primary();
-	case number:
-		return t.value;
-	case name:
-		return get_value(t.name);
-	default:
-		error("primary expected");
+	switch (t.kind)
+	{
+		case '(':
+		{	
+			double d = expression();
+			t = ts.get();
+			if (t.kind != ')')
+				error("'(' expected");
+		}
+		case '-':
+			return -primary();
+		case number:
+			return t.value;
+		case name:
+			return get_value(t.name);
+		default:
+			error("primary expected");
 	}
 }
 
 double term()
 {
 	double left = primary();
-	while (true) {
+	while (true) 
+	{
 		Token t = ts.get();
-		switch (t.kind) {
-		case '*':
-			left *= primary();
-			break;
-		case '/':
-		{	double d = primary();
-		if (d == 0) error("divide by zero");
-		left /= d;
-		break;
-		}
-		default:
-			ts.unget(t);
-			return left;
+		switch (t.kind)
+		{
+			case '*':
+				left *= primary();
+				t = ts.get();
+				break;
+			case '/':
+			{	
+				double d = primary();
+				if (d == 0) error("divide by zero");
+					left /= d;
+					t = ts.get();
+					break;
+			}
+			default:
+				ts.unget(t);
+				return left;
 		}
 	}
 }
@@ -186,18 +197,22 @@ double term()
 double expression()
 {
 	double left = term();
-	while (true) {
+	while (true) 
+	{
 		Token t = ts.get();
-		switch (t.kind) {
-		case '+':
-			left += term();
-			break;
-		case '-':
-			left -= term();
-			break;
-		default:
-			ts.unget(t);
-			return left;
+		switch (t.kind) 
+		{
+			case '+':
+				left += term();
+				t = ts.get();
+				break;
+			case '-':
+				left -= term();
+				t = ts.get();
+				break;
+			default:
+				ts.unget(t);
+				return left;
 		}
 	}
 }
@@ -205,11 +220,17 @@ double expression()
 double declaration()
 {
 	Token t = ts.get();
-	if (t.kind != 'a') error("name expected in declaration");
+	if (t.kind != 'a') 
+		error("name expected in declaration");
+	
 	string name = t.name;
-	if (is_declared(name)) error(name, " declared twice");
+	if (is_declared(name))
+		error(name, " declared twice");
+	
 	Token t2 = ts.get();
-	if (t2.kind != '=') error("= missing in declaration of ", name);
+	if (t2.kind != '=') 
+		error("= missing in declaration of ", name);
+	
 	double d = expression();
 	names.push_back(Variable(name, d));
 	return d;
@@ -218,12 +239,13 @@ double declaration()
 double statement()
 {
 	Token t = ts.get();
-	switch (t.kind) {
-	case let:
-		return declaration();
-	default:
-		ts.unget(t);
-		return expression();
+	switch (t.kind)
+	{
+		case let:
+			return declaration();
+		default:
+			ts.unget(t);
+			return expression();
 	}
 }
 
@@ -237,33 +259,40 @@ const string result = "= ";
 
 void calculate()
 {
-	while (true) try {
-		cout << prompt;
-		Token t = ts.get();
-		while (t.kind == print) t = ts.get();
-		if (t.kind == quit) return;
-		ts.unget(t);
-		cout << result << statement() << endl;
-	}
-	catch (runtime_error& e) {
-		cerr << e.what() << endl;
-		clean_up_mess();
-	}
+	while (cin) 
+		try
+		{
+			cout << prompt;
+			Token t = ts.get();
+			while (t.kind == print) // first discard all “prints”
+				t = ts.get();
+			if (t.kind == quit) 
+				return;
+			ts.unget(t);
+			cout << result << statement() << endl;
+		}
+		catch (runtime_error& e) 
+		{
+			cerr << e.what() << endl;
+			clean_up_mess();
+		}
 }
 
 int main()
-
-try {
+try
+{
 	calculate();
 	return 0;
 }
-catch (exception& e) {
+catch (exception& e)
+{
 	cerr << "exception: " << e.what() << endl;
 	char c;
 	while (cin >> c && c != ';');
 	return 1;
 }
-catch (...) {
+catch (...)
+{
 	cerr << "exception\n";
 	char c;
 	while (cin >> c && c != ';');
