@@ -20,7 +20,6 @@ class Token
 	// three constructors
 	Token(char ch) :kind(ch), value(0) {}
 	Token(char ch, double val) :kind(ch), value(val) {}
-	Token(char ch, string n): kind(ch), name(n) {}
 };
 
 class Token_stream
@@ -28,12 +27,20 @@ class Token_stream
 	public:
 		Token_stream() :full(0), buffer(0) {}
 		Token get();
-		void unget(Token t) { buffer = t; full = true; }
+		void unget(Token t);
 		void ignore(char); // discard characters up to and including a c
 	private:
 		bool full;
 		Token buffer;
 };
+
+void Token_stream::unget(Token t)
+{
+	if(full)
+		error("Token_stream buffer is full");
+	buffer = t;
+	full = true;
+}
 
 const char let = 'L';
 const char quit = 'Q';
@@ -43,48 +50,59 @@ const char name = 'a';
 
 Token Token_stream::get()
 {
-	if (full) { full = false; return buffer; }
+	if (full) 
+	{ 
+		full = false; 
+	 	return buffer;
+	}
+	
 	char ch;
 	cin >> ch;
-	switch (ch) {
-	case '(':
-	case ')':
-	case '+':
-	case '-':
-	case '*':
-	case '/':
-	case '%':
-	case ';':
-	case '=':
-		return Token(ch);
-	case '.':
-	case '0':
-	case '1':
-	case '2':
-	case '3':
-	case '4':
-	case '5':
-	case '6':
-	case '7':
-	case '8':
-	case '9':
-	{	cin.unget();
-	double val;
-	cin >> val;
-	return Token(number, val);
-	}
-	default:
-		if (isalpha(ch)) // isalpha(ch). This call answers the question “Is ch a letter?”
-		{
-			string s;
-			s += ch;
-			while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) s = ch;
+	
+	switch (ch)
+	{
+		case '(':
+		case ')':
+		case '+':
+		case '-':
+		case '*':
+		case '/':
+		case '%':
+		case ';':
+		case '=':
+			return Token(ch);
+		case '.':
+		case '0':
+		case '1':
+		case '2':
+		case '3':
+		case '4':
+		case '5':
+		case '6':
+		case '7':
+		case '8':
+		case '9':
+		{	
 			cin.unget();
-			if (s == "let") return Token(let);
-			if (s == "quit") return Token(name);
-			return Token(name, s);
+			double val;
+			cin >> val;
+			return Token(number, val);
 		}
-		error("Bad token");
+		default:
+			if (isalpha(ch)) // isalpha(ch). This call answers the question “Is ch a letter?”
+			{
+				string s;
+				s += ch;
+				while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) 
+					s += ch;
+				cin.unget();
+				if (s == let) 
+					return Token(let);
+				if (s == quit) 
+					return Token(name);
+				return Token(name, s);
+			}
+			error("Bad token");
 	}
 }
 
