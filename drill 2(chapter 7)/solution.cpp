@@ -322,6 +322,7 @@ void calculate()
 int main()
 try
 {
+	define_name("k", 1000);
 	calculate();
 	return 0;
 }
