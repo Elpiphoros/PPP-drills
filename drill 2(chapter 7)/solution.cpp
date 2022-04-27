@@ -25,7 +25,7 @@ class Token
 class Token_stream
 {
 	public:
-		Token_stream() :full(0), buffer(0) {}
+		Token_stream() :full(false), buffer(0) {}
 		Token get();
 		void unget(Token t);
 		void ignore(char); // discard characters up to and including a c
