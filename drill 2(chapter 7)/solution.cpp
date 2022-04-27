@@ -22,9 +22,9 @@ const string declkey = 'let';
 const string prompt = "> ";
 const string result = "= ";
 
-
 class Variable
 {
+	public:
 	string name;
 	double value;
 	Variable(string n, double v) :name(n), value(v) {}
@@ -57,8 +57,8 @@ void set_value(string s, double d)
 //does the variable name exist?
 bool is_declared(string s)
 {
-	for (int i = 0; i < names.size(); ++i)
-		if (names[i].name == s) 
+	for (int i = 0; i < var_table.size(); ++i)
+		if (var_table[i].name == s) 
 			return true;
 		return false;
 }
@@ -66,7 +66,7 @@ bool is_declared(string s)
 //if the variable doesn't exist, add the new variable to var_table
 double define_name (string var, double val)
 {
-	if(is_declared(var)
+	if(is_declared(var))
 		error(var, "declared twice");
 	var_table.push_back(Variable{var,val});
 	return val;
@@ -98,7 +98,7 @@ class Token_stream
 
 Token_stream::Token_stream() :full(false), buffer(0) {}
 
-void Token_stream::pushback(Token t)
+void Token_stream::putback(Token t)
 {
 	if(full)
 		error("Token_stream buffer is full");
@@ -141,7 +141,7 @@ Token Token_stream::get()
 		case '8':
 		case '9':
 		{	
-			cin.putback();
+			cin.putback(ch);
 			double val;
 			cin >> val;
 			return Token(number, val);
@@ -154,7 +154,7 @@ Token Token_stream::get()
 				s += ch;
 				while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) 
 					s += ch;
-				cin.putback();
+				cin.putback(ch);
 				if (s == declkey) 
 					return Token{let};
 				else if (is_declared(s)) 
