@@ -18,7 +18,7 @@ const char quit = 'q';
 const char print = ';';
 const char number = '8';
 const char name = 'a';
-const string declkey = 'let';
+const string declkey = "let";
 const string prompt = "> ";
 const string result = "= ";
 
@@ -309,7 +309,7 @@ void calculate()
 				t = ts.get();
 			if (t.kind == quit) 
 				return;
-			ts.pushback(t);
+			ts.putback(t);
 			cout << result << statement() << endl;
 		}
 		catch (exception& e) 
