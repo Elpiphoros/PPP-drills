@@ -25,16 +25,18 @@ class Token
 class Token_stream
 {
 	public:
-		Token_stream() :full(false), buffer(0) {}
+		Token_stream();
 		Token get();
-		void unget(Token t);
+		void pushback(Token t);
 		void ignore(char); // discard characters up to and including a c
 	private:
 		bool full;
 		Token buffer;
 };
 
-void Token_stream::unget(Token t)
+Token_stream::Token_stream() :full(false), buffer(0) {}
+
+void Token_stream::pushback(Token t)
 {
 	if(full)
 		error("Token_stream buffer is full");
@@ -43,7 +45,7 @@ void Token_stream::unget(Token t)
 }
 
 const char let = 'L';
-const char quit = 'Q';
+const char quit = 'q';
 const char print = ';';
 const char number = '8';
 const char name = 'a';
@@ -83,7 +85,7 @@ Token Token_stream::get()
 		case '8':
 		case '9':
 		{	
-			cin.unget();
+			cin.pushback();
 			double val;
 			cin >> val;
 			return Token(number, val);
@@ -114,12 +116,14 @@ void Token_stream::ignore(char c) // c represents the kind of Token
 		full = false;
 		return;
 	}
+	
 	full = false;
 	
 	// now search input:
 	char ch = 0;
 	while (cin >> ch)
-		if (ch == c) return;
+		if (ch == c) 
+			return;
 }
 
 class Variable
@@ -129,25 +133,27 @@ class Variable
 	Variable(string n, double v) :name(n), value(v) {}
 };
 
-vector<Variable> names;
+vector<Variable> var_table;
 
+//inpute the name of variable and get its value
 double get_value(string s)
 {
-	for (int i = 0; i < names.size(); ++i)
-		if (names[i].name == s)
-			return names[i].value;
-		error("get: undefined name ", s);
+	for (int i = 0; i < var_table.size(); ++i)
+		if (var_table[i].name == s)
+			return var_table[i].value;
+	error("get: undefined name ", s);
+	return -1;
 }
 
 void set_value(string s, double d)
 {
-	for (int i = 0; i < names.size(); ++i)
-		if (names[i].name == s) 
+	for (int i = 0; i < var_table.size(); ++i)
+		if (var_table[i].name == s) 
 		{
-			names[i].value = d;
+			var_table[i].value = d;
 			return;
 		}
-		error("set: undefined name ", s);
+	error("set: undefined name ", s);
 }
 
 bool is_declared(string s)
@@ -156,6 +162,14 @@ bool is_declared(string s)
 		if (names[i].name == s) 
 			return true;
 		return false;
+}
+
+double define_name (string var, double val)
+{
+	if(is_declared(var)
+		error(var, "declared twice");
+	var_table.push_back(Variable{var,val});
+	return val;
 }
 
 Token_stream ts;
@@ -262,7 +276,7 @@ double statement()
 		case let:
 			return declaration();
 		default:
-			ts.unget(t);
+			ts.pushback(t);
 			return expression();
 	}
 }
@@ -286,10 +300,10 @@ void calculate()
 				t = ts.get();
 			if (t.kind == quit) 
 				return;
-			ts.unget(t);
+			ts.pushback(t);
 			cout << result << statement() << endl;
 		}
-		catch (runtime_error& e) 
+		catch (exception& e) 
 		{
 			cerr << e.what() << endl;
 			clean_up_mess();
