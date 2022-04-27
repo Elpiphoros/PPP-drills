@@ -73,7 +73,8 @@ double define_name (string var, double val)
 }
 
 class Token
-{
+{	
+	public:
 	char kind;
 	double value;
 	string name;
