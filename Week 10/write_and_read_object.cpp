@@ -11,7 +11,7 @@ class student
     public:
         void getData(void)
         {
-            cout << "Enter name: ";cin.getline(name,30):
+            cout << "Enter name: ";cin.getline(name,30);
             cout << "Enter age: ";cin>>age;
         }
         
