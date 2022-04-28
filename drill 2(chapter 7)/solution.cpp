@@ -10,7 +10,7 @@
     6. Change the “quit keyword” from quit to exit. That will involve defining a string for quit just as we did for let in§7.8.2.
 */
 
-#include "../../std_lib_facilities.h"
+#include "std_lib_facilities.h"
 
 //symblic constants
 const char let = 'L';
@@ -18,9 +18,15 @@ const char quit = 'q';
 const char print = ';';
 const char number = '8';
 const char name = 'a';
-const string declkey = "let";
+const char square_root = 's';
+const char power_ = 'p';
+const char declkey = '#';//Change the “declaration keyword” from let to #.
+
 const string prompt = "> ";
 const string result = "= ";
+const string squareroot = "sqrt";
+const string power = "pow";
+const string quit_ = "exit";//Change the “quit keyword” from quit to exit.
 
 class Variable
 {
@@ -128,6 +134,7 @@ Token Token_stream::get()
 		case '%':
 		case ';':
 		case '=':
+		case ',':
 			return Token(ch);
 		case '.':
 		case '0':
@@ -146,6 +153,8 @@ Token Token_stream::get()
 			cin >> val;
 			return Token(number, val);
 		}
+		case declkey: //Change the “declaration keyword” from let to #.
+			return Token(let);
 		default:
 		{
 			if (isalpha(ch)) // isalpha(ch). This call answers the question “Is ch a letter?”
@@ -155,8 +164,13 @@ Token Token_stream::get()
 				while (cin.get(ch) && (isalpha(ch) || isdigit(ch))) 
 					s += ch;
 				cin.putback(ch);
-				if (s == declkey) 
-					return Token{let};
+				
+				if (s == squareroot)
+					return Token(square_root);
+				if (s == power)
+					return Token(power_);
+				if (s == quit_)
+					return Token(quit);
 				else if (is_declared(s)) 
 					return Token(number, get_value(s));
 				return Token{name, s};
@@ -190,6 +204,20 @@ Token_stream ts;
 
 double expression();
 
+double get_pow(double a, int b)
+{
+    if (b == 0) 
+    {
+        if (a == 0) 
+        	return 0;    
+        return 1;                   
+    }
+    double d = a;              
+    for (int i = 2; i<=b; ++i)
+        d *= a;
+    return d;
+}
+
 double primary()
 {
 	Token t = ts.get();
@@ -200,12 +228,47 @@ double primary()
 			double d = expression();
 			t = ts.get();
 			if (t.kind != ')')
-				error("'(' expected");
+				error("')' expected");
+			return d;
 		}
 		case '-':
 			return -primary();
 		case number:
 			return t.value;
+		case square_root:
+		{	
+			t =ts.get();
+        		if (t.kind != '(') 
+        			error("'(' expected");
+        		double d = expression();
+        		if (d < 0) error("get the square root of a nefative number is imposible!");
+        		t = ts.get();
+        		if (t.kind != ')') error("')' expected");
+        		return sqrt(d);
+		}
+		case power_:
+    		{   
+    			t = ts.get();
+        		if (t.kind != '(')
+        			error("'(' expected");
+        		double d = expression();
+        		
+        		t = ts.get();
+        		if (t.kind != ',')
+        			error("',' expected");
+        			
+        		t = ts.get();
+        		if (t.kind != number)
+        			error("second argument of 'pow' is not a number");
+        			
+        		int i = int(t.value);
+        		if (i != t.value)
+        			error("second argument of 'pow' is not an integer");
+        			
+        		t = ts.get();
+        		if (t.kind != ')') error("')' expected");
+        		return get_pow(d,i);
+    		}
 		default:
 			error("primary expected");
 	}
@@ -307,7 +370,7 @@ void calculate()
 			while (t.kind == print) // first discard all “prints”
 				t = ts.get();
 			if (t.kind == quit) 
-				return;
+				break;
 			ts.putback(t);
 			cout << result << statement() << endl;
 		}
@@ -320,8 +383,8 @@ void calculate()
 
 int main()
 try
-{
-	define_name("k", 1000);
+{	
+	define_name("k",1000);
 	calculate();
 	return 0;
 }
