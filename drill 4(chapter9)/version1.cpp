@@ -60,9 +60,7 @@ int main()
     
     //invalid date to check
     Date x;
-        x.y = -1;
-        x.m = 13;
-        x.d = 32;
+    init_day(x, -2, 13, 32);
     
     cout << x.y << "." << x.m << "." << x.d << endl;
      
