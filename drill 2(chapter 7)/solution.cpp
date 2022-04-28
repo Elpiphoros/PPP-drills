@@ -384,12 +384,13 @@ void calculate()
 int main()
 try
 {	
+	cout << "hello, input expression and use ';' to get answer, type 'exit' to leave" << endl;
 	define_name("k",1000);
 	calculate();
 	return 0;
 }
 catch (exception& e)
-{
+{	
 	cerr << "exception: " << e.what() << endl;
 	char c;
 	while (cin >> c && c != ';');
