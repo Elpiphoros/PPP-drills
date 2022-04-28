@@ -32,57 +32,39 @@ void add_day(Date& date, int n)
 {
     // increase dd by n days
     date.d += n;
+	if (date.d > 31) 
+	{
+		date.m++;
+		date.d -= 31;
+		if (date.m > 12)
+		{
+			date.y++;
+			date.m -= 12;
+		}
+	}
 }
        
-/*void f()
-{
-    Date today3;
-        today3.y = 2009
-        today3.m = 3
-        today3.d = 3
-    cout << today << '\n';
-    
-    init_day(today3, 2009, 3, 3);
-     
-    Date tomorrow;
-        tomorrow.y = today3.y;
-        tomorrow.m = today3.m;
-        tomorrow.d = today3.d + 1;
-    cout << tomorrow << '\n';
-    add_day(today3, 1);
-}*/
 int main()
 {
-    // a Date variable (a named object)
-    Date today; 
+    //Date variable ( named object)
+    Date today;
+    Date tomorrow;
     
-    // set today to December 24, 2005
-    today.y = 2005;
-    today.m = 24;
-    today.d = 12;
+    init_day(today, 1978, 6, 25);  // set today to 1978.6.25
     
+    tomorrow = today;       // copy today to tomorrow
+    add_day(tomorrow, 1);   //add 1 day to tomorrow
+    
+    cout << "today: " << today.y << "." << today.m << "." << today.d << "."<< endl;  
+    cout << "tomorrow: " << tomorrow.y << "." << tomorrow.m << "." << tomorrow.d << "."<< endl;  
+    
+    //invalid date to check
     Date x;
         x.y = -1;
         x.m = 13;
         x.d = 32;
     
-    Date y;
-        y.y = 2000;
-        y.m = 2;
-        y.d = 29;
-
-    cout << today.y << "." << today.m << "." << today.d << "."<< endl;  
-    
     cout << x.y << "." << x.m << "." << x.d << endl;
-    
-    cout << y.y << "." << y.m << "." << y.d << endl;
-    
-    Date today2;
-    init_day(today2, 2003, 4, 8);
-    cout << today2.y << "." << today2.m << "." << today2.d << endl;
-     
-    add_day(today2, 1);
-    cout << today2.y << "." << today2.m << "." << today2.d << endl;
      
     return 0;
 }
