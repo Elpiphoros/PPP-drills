@@ -10,7 +10,7 @@
     6. Change the “quit keyword” from quit to exit. That will involve defining a string for quit just as we did for let in§7.8.2.
 */
 
-#include "std_lib_facilities.h"
+#include "../std_lib_facilities.h"
 
 //symblic constants
 const char let = 'L';
