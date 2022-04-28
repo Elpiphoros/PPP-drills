@@ -10,24 +10,28 @@ struct Date
 // helper functions:
 void init_day(Date& dd, int y, int m, int d)
 {
+    // check that (y,m,d) is a valid date
+    // if it is, use it to initialize dd
+    if (y > 0)
+        dd.y = y;
+    else
+        error("Invalid year");
     
-     if (y > 0)
-         dd.y = y;
-     else
-         error("Invalid year");
-     if (m > 0 && m < 13)
-         dd.m = m;
-     else 
-         error("Invalid month");
-     if (d > 0 && d < 32)
-         dd.d = d;
-     else 
-         error("Invalid day");
+    if (m > 0 && m < 13)
+        dd.m = m;
+    else 
+        error("Invalid month");
+    
+    if (d > 0 && d < 32)
+        dd.d = d;
+    else 
+        error("Invalid day");
 }
 
 void add_day(Date& date, int n)
 {
-     date.d += n; 
+    // increase dd by n days
+    date.d += n;
 }
        
 /*void f()
