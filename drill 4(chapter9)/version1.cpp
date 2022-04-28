@@ -61,7 +61,6 @@ int main()
     //invalid date to check
     Date x;
     init_day(x, -2, 13, 32);
-    
     cout << x.y << "." << x.m << "." << x.d << endl;
      
     return 0;
