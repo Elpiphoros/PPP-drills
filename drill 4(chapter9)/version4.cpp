@@ -19,12 +19,10 @@ eg: Date dx1 {Year{1998}, 4, 3}; // error: 2nd argument not a Month
     Date dx2 {4, Month::mar, Year{1998}}; // error: 1st argument not a Year
     Date dx2 {Month::mar, 4, Year{1998}}; // error: 2nd argument not a Month
     Date dx3 {Year{1998}, Month::mar, 30}; // OK
+*/    
         int year() {return y;}
         void increment() {y++;}
-*/
-    int year() { return y; }
-    void increment() { y++; }
-	
+ 
     private:
         int y;
 }
@@ -119,13 +117,13 @@ months has been initialized at the beginning so that (for example) months[int(Mo
 
 class Date
 {
-    int year;
+    Year year;
     Month month;
     int day;
     
 public:
     class Invalid {};  //user defined data type  Invalid
-    Date(int y, Month m, int d): year(y), month(m), day(d) { if (!is_valid()) throw Invalid {}; }  
+    Date(Year y, Month m, int d): year(y), month(m), day(d) { if (!is_valid()) throw Invalid {}; }  
 	
 /*  initilize date and check if it's valid through a function
 eg: Date dx1 {1998, 4, 3}; // error: 2nd argument not a Month
@@ -136,7 +134,7 @@ eg: Date dx1 {1998, 4, 3}; // error: 2nd argument not a Month
 	
     bool is_valid();
     void add_day(int n);
-    int get_year() { return year; }
+    Year get_year() { return year; }
     Month get_month() { return month; }
     int get_day() { return day; }
 };
@@ -157,7 +155,7 @@ void Date::add_day(int n)
 	day -= 31;
 	if (month == Month::jan)
 	{
-		year++;
+		++year; //notice!!
 	}
     }
 }
@@ -173,10 +171,10 @@ try
     cout << "tomorrow: " << tomorrow.get_year() << "." << tomorrow.get_month() << "." << tomorrow.get_day() << endl;
 
     Date my_birthday {Year{2020},Month::dec,31};
-    cout << "check Date: " << my_birthday.get_year() << ". " << my_birthday.get_month() << " " << my_birthday.get_day() << ".\n";
+    cout << "check Date: " << my_birthday.get_year() << ". " << my_birthday.get_month() << ". " << my_birthday.get_day() << endl;
 
     my_birthday.add_day(1);
-    cout << "check Date: " << my_birthday.get_year() << ". " << my_birthday.get_month() << " " << my_birthday.get_day() << ".\n";
+    cout << "check Date: " << my_birthday.get_year() << ". " << my_birthday.get_month() << ". " << my_birthday.get_day() << endl;
 	
     //invalid date to check
     Date x {Year{-2}, Month::aug, 32};
@@ -197,5 +195,5 @@ catch (Year::Invalid)
 catch (exception& e)
 {
     cout << "Error: " << e.what() << endl;
-    return 1;
+    return 3;
 }
