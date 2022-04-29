@@ -84,7 +84,7 @@ class Date
     int day;
     
 public:
-    class Invalid {};
+    class Invalid {};  //user defined data type  Invalid
     Date(int y, Month m, int d): year(y), month(m), day(d) { if (!is_valid()) throw Invalid {}; }  //initilize date and check if it's valid through a function
     bool is_valid();
     void add_day(int n);
@@ -119,15 +119,15 @@ int main()
 try
 {   
     Date today {1978, Month::jun, 25};
-    cout << "today: " << today.get_year << "." << today.get_month << "." << today.get_day << endl;
+    cout << "today: " << today.get_year() << "." << today.get_month() << "." << today.get_day() << endl;
 	
     Date tomorrow = today;
     tomorrow.add_day(1);
-    cout << "tomorrow: " << tomorrow.get_year << "." << tomorrow.get_month << "." << tomorrow.get_day << endl;
+    cout << "tomorrow: " << tomorrow.get_year() << "." << tomorrow.get_month() << "." << tomorrow.get_day() << endl;
 	
     //invalid date to check
     Date x {-2, Month::aug, 32};
-    cout << x.get_year << "." << x.get_month << "." << x.get_day << endl;
+    cout << x.get_year() << "." << x.get_month() << "." << x.get_day() << endl;
      
     return 0;
 }
