@@ -54,17 +54,20 @@ int main()
 try
 {   
     Date today {1978, 6, 25};
-         cout << "today: " << today.year << "." << today.month << "." << today.day << endl;
-    Date tomorrow = today.add_day(1);
-         cout << "tomorrow: " << tomorrow.year << "." << tomorrow.month << "." << tomorrow.day << endl;
+	cout << "today: " << today.year << "." << today.month << "." << today.day << endl;
+	
+    Date tomorrow = today;
+	tomorrow.add_day(1);
+	cout << "tomorrow: " << tomorrow.year << "." << tomorrow.month << "." << tomorrow.day << endl;
 	
     //invalid date to check
     Date x {-2, 13, 32};
-    cout << x.y << "." << x.m << "." << x.d << endl;
+    cout << x.year << "." << x.month << "." << x.day << endl;
      
     return 0;
 }
-catch (exception& e) {
+catch (exception& e)
+{
 	cout << "Error: " << e.what() << endl;
 	return 1;
 }
