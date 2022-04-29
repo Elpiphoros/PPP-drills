@@ -141,7 +141,7 @@ eg: Date dx1 {1998, 4, 3}; // error: 2nd argument not a Month
 
 bool Date::is_valid()  // check the year and day is valid or not
 {
-    if (year < 0 || day < 1 || day > 31)
+    if (day < 1 || day > 31)
         return false;
     return true;
 }
