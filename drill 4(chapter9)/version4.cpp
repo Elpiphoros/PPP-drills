@@ -7,8 +7,8 @@ Note the use of "static const" in the definitions of min and max. This is the wa
 For a class member, we use static to make sure that there is just one copy of the value in the program, rather than one per object of the class.
 In this case, because the initializer is a constant expression, we could have used constexpr instead of const.
 */
-    static const int min = 1800;
-    static const int max = 2200;
+    static constexpr int min = 1800;
+    static constexpr int max = 2200;
     
     public:
         class Invalid {};
@@ -25,7 +25,7 @@ eg: Date dx1 {Year{1998}, 4, 3}; // error: 2nd argument not a Month
  
     private:
         int y;
-}
+};
 
 Year operator++(Year& year)
 {
@@ -56,7 +56,7 @@ const vector<string> months =
 
 enum class Month
 {
-    jan =1 , feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
+    jan , feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
 };
 
 /*An enum (an enumeration) is a very simple user-defined type, specifying its set of values (its enumerators) as symbolic constants. For example:
@@ -171,10 +171,10 @@ try
     cout << "tomorrow: " << tomorrow.get_year() << "." << tomorrow.get_month() << "." << tomorrow.get_day() << endl;
 
     Date my_birthday {Year{2020},Month::dec,31};
-    cout << "check Date: " << my_birthday.get_year() << ". " << my_birthday.get_month() << ". " << my_birthday.get_day() << endl;
+    cout << "check Date: " << my_birthday.get_year() << "." << my_birthday.get_month() << "." << my_birthday.get_day() << endl;
 
     my_birthday.add_day(1);
-    cout << "check Date: " << my_birthday.get_year() << ". " << my_birthday.get_month() << ". " << my_birthday.get_day() << endl;
+    cout << "check Date: " << my_birthday.get_year() << "." << my_birthday.get_month() << "." << my_birthday.get_day() << endl;
 	
     //invalid date to check
     Date x {Year{-2}, Month::aug, 32};
