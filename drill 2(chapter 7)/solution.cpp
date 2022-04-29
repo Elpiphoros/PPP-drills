@@ -240,10 +240,15 @@ double primary()
 			t =ts.get();
         		if (t.kind != '(') 
         			error("'(' expected");
+			
         		double d = expression();
-        		if (d < 0) error("get the square root of a nefative number is imposible!");
+        		if (d < 0) 
+					error("get the square root of a nefative number is imposible!");
+			
         		t = ts.get();
-        		if (t.kind != ')') error("')' expected");
+        		if (t.kind != ')')
+					error("')' expected");
+			
         		return sqrt(d);
 		}
 		case power_:
@@ -267,6 +272,7 @@ double primary()
         			
         		t = ts.get();
         		if (t.kind != ')') error("')' expected");
+				
         		return get_pow(d,i);
     		}
 		default:
