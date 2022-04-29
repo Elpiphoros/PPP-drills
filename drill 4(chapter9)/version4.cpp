@@ -1,4 +1,4 @@
-#include "../../std_lib_facilities.h"
+#include "../std_lib_facilities.h"
    
 const vector<string> months = 
 {
@@ -105,12 +105,11 @@ void Date::add_day(int n)
     day += n;
     if (day > 31) 
     {
-	month++;
+	++month; // notice here!!if forget, go back and read the example!!
 	day -= 31;
-	if (month > 12)
+	if (month == Month::jan)
 	{
 		year++;
-		month -= 12;
 	}
     }
 }
