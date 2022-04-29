@@ -56,6 +56,12 @@ try
     tomorrow.add_day(1);
     cout << "tomorrow: " << tomorrow.get_year() << "." << tomorrow.get_month() << "." << tomorrow.get_day() << endl;
 	
+    Date my_birthday {2020,Month::dec,31};
+    cout << "check Date: " << my_birthday.get_year() << ". " << my_birthday.get_month() << " " << my_birthday.get_day() << ".\n";
+
+    my_birthday.add_day(1);
+    cout << "check Date: " << my_birthday.get_year() << ". " << my_birthday.get_month() << " " << my_birthday.get_day() << ".\n";
+	
     //invalid date to check
     Date x {-2, 13, 32};
     cout << x.get_year() << "." << x.get_month() << "." << x.get_day() << endl;
