@@ -85,7 +85,15 @@ class Date
     
 public:
     class Invalid {};  //user defined data type  Invalid
-    Date(int y, Month m, int d): year(y), month(m), day(d) { if (!is_valid()) throw Invalid {}; }  //initilize date and check if it's valid through a function
+    Date(int y, Month m, int d): year(y), month(m), day(d) { if (!is_valid()) throw Invalid {}; }  
+	
+/*  initilize date and check if it's valid through a function
+eg: Date dx1 {1998, 4, 3}; // error: 2nd argument not a Month
+    Date dx2 {1998, 4, Month::mar}; // error: 2nd argument not a Month
+    Date dx2 {4, Month::mar, 1998}; // oops: run-time error: day 1998
+    Date dx2 {Month::mar, 4, 1998}; // error: 2nd argument not a Month
+*/
+	
     bool is_valid();
     void add_day(int n);
     int get_year() { return year; }
