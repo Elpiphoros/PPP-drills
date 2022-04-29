@@ -1,5 +1,45 @@
 #include "../std_lib_facilities.h"
-   
+
+class Year  // year in [min:max) range
+{
+/*
+Note the use of "static const" in the definitions of min and max. This is the way we define symbolic constants of integer types within classes.
+For a class member, we use static to make sure that there is just one copy of the value in the program, rather than one per object of the class.
+In this case, because the initializer is a constant expression, we could have used constexpr instead of const.
+*/
+    static const int min = 1800;
+    static const int max = 2200;
+    
+    public:
+        class Invalid {};
+        Year(int x): y{x} {if (x < min || x > max) throw Invalid{};}
+/* 
+eg: Date dx1 {Year{1998}, 4, 3}; // error: 2nd argument not a Month
+    Date dx2 {Year{1998}, 4, Month::mar}; // error: 2nd argument not a Month
+    Date dx2 {4, Month::mar, Year{1998}}; // error: 1st argument not a Year
+    Date dx2 {Month::mar, 4, Year{1998}}; // error: 2nd argument not a Month
+    Date dx3 {Year{1998}, Month::mar, 30}; // OK
+        int year() {return y;}
+        void increment() {y++;}
+*/
+    int year() { return y; }
+    void increment() { y++; }
+	
+    private:
+        int y;
+}
+
+Year operator++(Year& year)
+{
+    year.increment();
+}
+
+ostream& operator<< (ostream& os, Year year)
+{
+    return os << year.year();
+}
+
+
 const vector<string> months = 
 {
     "January",
@@ -125,15 +165,21 @@ void Date::add_day(int n)
 int main()
 try
 {   
-    Date today {1978, Month::jun, 25};
+    Date today {Year{1978}, Month::jun, 25};
     cout << "today: " << today.get_year() << "." << today.get_month() << "." << today.get_day() << endl;
 	
     Date tomorrow = today;
     tomorrow.add_day(1);
     cout << "tomorrow: " << tomorrow.get_year() << "." << tomorrow.get_month() << "." << tomorrow.get_day() << endl;
+
+    Date my_birthday {Year{2020},Month::dec,31};
+    cout << "check Date: " << my_birthday.get_year() << ". " << my_birthday.get_month() << " " << my_birthday.get_day() << ".\n";
+
+    my_birthday.add_day(1);
+    cout << "check Date: " << my_birthday.get_year() << ". " << my_birthday.get_month() << " " << my_birthday.get_day() << ".\n";
 	
     //invalid date to check
-    Date x {-2, Month::aug, 32};
+    Date x {Year{-2}, Month::aug, 32};
     cout << x.get_year() << "." << x.get_month() << "." << x.get_day() << endl;
      
     return 0;
@@ -142,6 +188,11 @@ catch (Date::Invalid) //catch the error we defined
 {
     cout << "Error: Invalid date\n";
     return 1;
+}
+catch (Year::Invalid) 
+{
+    cout << "Error: Invalid year\n";
+    return 2;
 }
 catch (exception& e)
 {
