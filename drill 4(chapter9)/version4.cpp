@@ -89,14 +89,14 @@ bool Date::is_valid()
 void Date::add_day(int n)
 {
     day += n;
-	if (day > 31) 
+    if (day > 31) 
+    {
+	month++;
+	day -= 31;
+	if (month > 12)
 	{
-		month++;
-		day -= 31;
-		if (month > 12)
-		{
-			year++;
-		    month -= 12;
-		}
+		year++;
+		month -= 12;
 	}
+    }
 }
