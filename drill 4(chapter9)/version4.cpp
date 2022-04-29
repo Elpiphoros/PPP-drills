@@ -18,7 +18,7 @@ const vector<string> months =
 
 enum class Month
 {
-    jan , feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
+    jan =1 , feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
 };
 
 /*An enum (an enumeration) is a very simple user-defined type, specifying its set of values (its enumerators) as symbolic constants. For example:
@@ -67,10 +67,15 @@ Month operator++(Month& m)  // prefix increment operator
     return m;
 }
 
-ostream& operator<<(ostream& os, Month m)
+ostream& operator<<(ostream& os, Month m) //output operator!!!
 {
     return os << months[int(m)];
 }
+
+/*
+months has been initialized at the beginning so that (for example) months[int(Month::mar)] is
+"March"
+*/
 
 class Date
 {
