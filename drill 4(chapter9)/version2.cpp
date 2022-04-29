@@ -62,7 +62,7 @@ try
 	
     //invalid date to check
     Date x {-2, 13, 32};
-	cout << x.year << "." << x.month << "." << x.day << endl;
+    cout << x.year << "." << x.month << "." << x.day << endl;
      
     return 0;
 }
