@@ -1,24 +1,5 @@
 #include "../../std_lib_facilities.h"
-
-class Year  // year in [min:max) range
-{
-/*
-Note the use of "static const" in the definitions of min and max. This is the way we define symbolic constants of integer types within classes.
-For a class member, we use static to make sure that there is just one copy of the value in the program, rather than one per object of the class.
-In this case, because the initializer is a constant expression, we could have used constexpr instead of const.
-*/
-    static const int min = 1800;
-    static const int max = 2200;
-    
-    public:
-        class Invalid {};
-        Year(int x): y{x} {if (x < min || x >= max) throw Invalid{};}
-        int year() {return y;}
-        void increment() {y++;}
-    
-    private:
-        int y;
-    
+   
 const vector<string> months = 
 {
     "January",
@@ -37,7 +18,7 @@ const vector<string> months =
 
 enum class Month
 {
-    jan =1 , feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
+    jan , feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
 };
 
 /*An enum (an enumeration) is a very simple user-defined type, specifying its set of values (its enumerators) as symbolic constants. For example:
@@ -63,6 +44,34 @@ enum Month  // note: no “class”!!!
     “plain” enums are less strict than enum classes!!
 */
 
+
+/*
+//You can define almost all C++ operators for class or enumeration operands. That’s often called operator overloading.
+The ? : construct is an “arithmetic if”: m becomes Jan if (m==Dec) and Month(int(m)+1) otherwise.
+It is a reasonably elegant way of expressing the fact that months “wrap around” after December.
+eg: Month m = Sep;
+    ++m; // m becomes Oct
+    ++m; // m becomes Nov
+    ++m; // m becomes Dec
+    ++m; // m becomes Jan (“wrap around”)
+    .... ?    .... : .....   similar in C language!!
+    
+    An overloaded operator must have at least one user-defined type as operand:
+eg: int operator+(int,int); // error: you can’t overload built-in +
+    Vector operator+(const Vector&, const Vector &); // OK
+    Vector operator+=(const Vector&, int); // OK
+*/
+Month operator++(Month& m)  // prefix increment operator
+{
+    m = (m==Month::dec) ? Month::jan : Month(int(m)+1);
+    return m;
+}
+
+ostream& operator<<(ostream& os, Month m)
+{
+    return os << months[int(m)];
+}
+
 class Date
 {
     int year;
@@ -71,15 +80,15 @@ class Date
     
 public:
     class Invalid {};
-    Date(int y, Month m, int d): year(y), month(m), day(d) { if (!is_valid()) throw Invalid {}; }
+    Date(int y, Month m, int d): year(y), month(m), day(d) { if (!is_valid()) throw Invalid {}; }  //initilize date and check if it's valid through a function
     bool is_valid();
     void add_day(int n);
     int get_year() { return year; }
     Month get_month() { return month; }
-	int get_day(){ return day; }
+    int get_day() { return day; }
 };
 
-bool Date::is_valid()
+bool Date::is_valid()  // check the year and day is valid or not
 {
     if (year < 0 || day < 1 || day > 31)
         return false;
@@ -99,4 +108,31 @@ void Date::add_day(int n)
 		month -= 12;
 	}
     }
+}
+
+int main()
+try
+{   
+    Date today {1978, Month::jun, 25};
+    cout << "today: " << today.get_year << "." << today.get_month << "." << today.get_day << endl;
+	
+    Date tomorrow = today;
+    tomorrow.add_day(1);
+    cout << "tomorrow: " << tomorrow.get_year << "." << tomorrow.get_month << "." << tomorrow.get_day << endl;
+	
+    //invalid date to check
+    Date x {-2, Month::aug, 32};
+    cout << x.get_year << "." << x.get_month << "." << x.get_day << endl;
+     
+    return 0;
+}
+catch (Date::Invalid) //catch the error we defined
+{
+    cout << "Error: Invalid date\n";
+    return 1;
+}
+catch (exception& e)
+{
+    cout << "Error: " << e.what() << endl;
+    return 1;
 }
