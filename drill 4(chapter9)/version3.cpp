@@ -4,14 +4,14 @@
 //Date should be inaccessible to users except through the public member functions that we supply.
 class Date
 {
-	int year, month, day; // year, month, day
+    int year, month, day; // year, month, day
 	
-	public:
-		Date(int y, int m, int d); 	// check for valid date and initialize
-		void add_day(int n); 		// increase the Date by n days
-		int get_month() { return m; }
-		int get_day() { return d; }
-		int get_year() { return y; }
+    public:
+        Date(int y, int m, int d); 	// check for valid date and initialize
+        void add_day(int n); 		// increase the Date by n days
+        int get_month() { return m; }
+        int get_day() { return d; }
+        int get_year() { return y; }
 };
 
 Date::Date(int y, int m, int d)
