@@ -31,9 +31,9 @@ const string quit_ = "exit";//Change the “quit keyword” from quit to exit.
 class Variable
 {
 	public:
-	string name;
-	double value;
-	Variable(string n, double v) :name(n), value(v) {}
+		string name;
+		double value;
+		Variable(string n, double v) :name(n), value(v) {}
 };
 
 vector<Variable> var_table;
@@ -81,13 +81,13 @@ double define_name (string var, double val)
 class Token
 {	
 	public:
-	char kind;
-	double value;
-	string name;
-	// three constructors
-	Token(char ch) :kind(ch), value(0) {}
-	Token(char ch, double val) :kind(ch), value(val) {}
-	Token(char ch, string n) : kind(ch), name(n) {}
+		char kind;
+		double value;
+		string name;
+		// three constructors
+		Token(char ch) :kind(ch), value(0) {}
+		Token(char ch, double val) :kind(ch), value(val) {}
+		Token(char ch, string n) : kind(ch), name(n) {}
 };
 
 class Token_stream
