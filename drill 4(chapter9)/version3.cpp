@@ -1,21 +1,17 @@
 #include "../std_lib_facilities.h"
 
-struct Date
+// simple Date (control access)
+//Date should be inaccessible to users except through the public member functions that we supply.
+class Date
 {
-    int year, month, day;
-    Date(int y, int m, int d);  // check for valid date and initialize
-                                //A member function with the same name as its class is special. 
-                                //It is called a constructor and will be used for initialization(“construction”) of objects of the class!!
-    
-                                //eg: Date my_birthday; // error: my_birthday not initialized
-                                //    Date today {12,24,2007}; // oops! run-time error
-                                //    Date last {2000,12,31}; // OK (colloquial style)
-				//    Date last(2000,12,31); // OK (old colloquial style)
-                                //    Date next = {2014,2,14}; // also OK (slightly verbose)
-                                //    Date christmas = Date{1976,12,24}; // also OK (verbose style)
-    
-    void add_day(int n);        // increase the Date by n days
-
+	int year, month, day; // year, month, day
+	
+	public:
+		Date(int y, int m, int d); 	// check for valid date and initialize
+		void add_day(int n); 		// increase the Date by n days
+		int get_month() { return m; }
+		int get_day() { return d; }
+		int get_year() { return y; }
 };
 
 Date::Date(int y, int m, int d)
@@ -54,15 +50,15 @@ int main()
 try
 {   
 	Date today {1978, 6, 25};
-    cout << "today: " << today.year << "." << today.month << "." << today.day << endl;
+    cout << "today: " << today.get_year << "." << today.get_month << "." << today.get_day << endl;
 	
     Date tomorrow = today;
     tomorrow.add_day(1);
-    cout << "tomorrow: " << tomorrow.year << "." << tomorrow.month << "." << tomorrow.day << endl;
+    cout << "tomorrow: " << tomorrow.get_year << "." << tomorrow.get_month << "." << tomorrow.get_day << endl;
 	
     //invalid date to check
     Date x {-2, 13, 32};
-    cout << x.year << "." << x.month << "." << x.day << endl;
+    cout << x.get_year << "." << x.get_month << "." << x.get_day << endl;
      
     return 0;
 }
