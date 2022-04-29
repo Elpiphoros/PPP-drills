@@ -3,8 +3,17 @@
 struct Date
 {
     int year, month, day;
-    Date(int y, int m, int d);
-    void add_day(int n);
+    Date(int y, int m, int d);  // check for valid date and initialize
+                                //A member function with the same name as its class is special. 
+                                //It is called a constructor and will be used for initialization(“construction”) of objects of the class!!
+    
+                                //eg: Date my_birthday; // error: my_birthday not initialized
+                                //    Date today {12,24,2007}; // oops! run-time error
+                                //    Date last {2000,12,31}; // OK (colloquial style)
+                                //    Date next = {2014,2,14}; // also OK (slightly verbose)
+                                //    Date christmas = Date{1976,12,24}; // also OK (verbose style)
+    
+    void add_day(int n);        // increase the Date by n days
 
 };
 
@@ -26,37 +35,32 @@ Date::Date(int y, int m, int d)
 
 void Date::add_day(int n)
 {
-    day += n; 
+    day += n;
+	if (day > 31) 
+	{
+		month++;
+		day -= 31;
+		if (month > 12)
+		{
+			year++;
+			month -= 12;
+		}
+	}
 }
        
-/*void f()
-{
-    Date today3;
-         today3.y = 2009
-         today3.m = 3
-         today3.d = 3
-    cout << today << '\n';
-    
-    init_day(today3, 2009, 3, 3);
-     
-    Date tomorrow;
-         tomorrow.y = today3.y;
-         tomorrow.m = today3.m;
-         tomorrow.d = today3.d + 1;
-    cout << tomorrow << '\n';
-    add_day(today3, 1);
-}*/
+
 int main()
-{
-    //Date my_birthday;
-    //Date today{12,24,2007};
+try
+{   
+    Date today {1978, 6, 25};
+         cout << "today: " << today.year << "." << today.month << "." << today.day << endl;
+    Date tomorrow = today.add_day(1);
+         cout << "tomorrow: " << tomorrow.year << "." << tomorrow.month << "." << tomorrow.day << endl;
     
-    Date last{2000, 12, 31};
-         cout << last.year << "." << last.month << "." << last.day << '\n';
-    Date next = {2014, 2, 14};
-         cout << next.year << "." << last.month << "." << last.day << '\n';
-    Date christmas = Date{1976, 12, 24};   
-         cout << christmas.year << "." << christmas.month << "." << christmas.day << '\n';
      
     return 0;
+}
+catch (exception& e) {
+	cout << "Error: " << e.what() << endl;
+	return 1;
 }
