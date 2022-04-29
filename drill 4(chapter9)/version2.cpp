@@ -10,6 +10,7 @@ struct Date
                                 //eg: Date my_birthday; // error: my_birthday not initialized
                                 //    Date today {12,24,2007}; // oops! run-time error
                                 //    Date last {2000,12,31}; // OK (colloquial style)
+				//    Date last(2000,12,31); // OK (old colloquial style)
                                 //    Date next = {2014,2,14}; // also OK (slightly verbose)
                                 //    Date christmas = Date{1976,12,24}; // also OK (verbose style)
     
@@ -56,7 +57,10 @@ try
          cout << "today: " << today.year << "." << today.month << "." << today.day << endl;
     Date tomorrow = today.add_day(1);
          cout << "tomorrow: " << tomorrow.year << "." << tomorrow.month << "." << tomorrow.day << endl;
-    
+	
+    //invalid date to check
+    Date x {-2, 13, 32};
+    cout << x.y << "." << x.m << "." << x.d << endl;
      
     return 0;
 }
