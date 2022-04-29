@@ -68,6 +68,6 @@ try
 }
 catch (exception& e)
 {
-	cout << "Error: " << e.what() << endl;
-	return 1;
+cout << "Error: " << e.what() << endl;
+return 1;
 }
