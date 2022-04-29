@@ -96,7 +96,7 @@ void Date::add_day(int n)
 		if (month > 12)
 		{
 			year++;
-			month -= 12;
+		    month -= 12;
 		}
 	}
 }
