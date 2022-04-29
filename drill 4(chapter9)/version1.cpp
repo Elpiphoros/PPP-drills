@@ -45,6 +45,7 @@ void add_day(Date& date, int n)
 }
        
 int main()
+try
 {
     //Date variable ( named object)
     Date today;
@@ -64,4 +65,9 @@ int main()
     cout << x.y << "." << x.m << "." << x.d << endl;
      
     return 0;
+}
+catch (exception& e)
+{
+	cout << "Error: " << e.what() << endl;
+	return 1;
 }
