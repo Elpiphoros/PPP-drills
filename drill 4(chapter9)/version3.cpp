@@ -49,7 +49,7 @@ void Date::add_day(int n)
 int main()
 try
 {   
-	Date today {1978, 6, 25};
+    Date today {1978, 6, 25};
     cout << "today: " << today.get_year << "." << today.get_month << "." << today.get_day << endl;
 	
     Date tomorrow = today;
