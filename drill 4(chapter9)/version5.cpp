@@ -71,9 +71,9 @@ namespace Chrono
     		Date(int y, Month m, int d): year(y), month(m), day(d) { if (!is_valid()) throw Invalid {}; }  	
     		bool is_valid();
     		void add_day(int n);
-    		Year get_year() { return year; }
-    		Month get_month() { return month; }
-    		int get_day() { return day; }
+    		Year get_year() const { return year; }
+    		Month get_month() const { return month; }
+    		int get_day() const { return day; }
 	};
 
 	bool Date::is_valid()  // check the year and day is valid or not
