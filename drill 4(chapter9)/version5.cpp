@@ -68,7 +68,7 @@ namespace Chrono
     
 		public:
     		class Invalid {};  //user defined data type  Invalid
-    		Date(int y, Month m, int d): year(y), month(m), day(d) { if (!is_valid()) throw Invalid {}; }  	
+    		Date(Year y, Month m, int d): year(y), month(m), day(d) { if (!is_valid()) throw Invalid {}; }  	
     		bool is_valid();
     		void add_day(int n);
     		Year get_year() const { return year; }
