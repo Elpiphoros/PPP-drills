@@ -29,7 +29,7 @@ void f(int ai[], int n)
 {
     int la[10]; // Define a local int array la of ten ints.
     
-    for (int i = 0; i<las; ++i) //Copy the values from ga into la through a loop
+    for (int i = 0; i<10; ++i) //Copy the values from ga into la through a loop
         la[i] = ga[i];
     
     print_ar(la,10);      //Print out the elements of la.
