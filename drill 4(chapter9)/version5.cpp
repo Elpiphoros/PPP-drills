@@ -72,11 +72,15 @@ namespace Chrono
     			bool is_valid();
     			void add_day(int n);
     			Year get_year() const { return year; }
+/*
+We use const right after the argument list in a member function declaration to indicate that the member function can be called for a const object. 
+Once we have declared a member function const, the compiler holds us to our promise not to modify the object.
+*/
     			Month get_month() const { return month; }
     			int get_day() const { return day; }
 	};
 
-	bool Date::is_valid()  // check the year and day is valid or not
+	bool Date::is_valid()  // check the year and day is valid or not (helper function)
 	{
     		if (day < 1 || day > 31)
         		return false;
