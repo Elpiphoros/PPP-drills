@@ -55,7 +55,7 @@ namespace Chrono
     		return m;
 	}
 
-	ostream& operator<<(ostream& os, Month m) //output operator!!!
+	ostream& operator<<(ostream& os, Month m) 
 	{
     		return os << months[int(m)];
 	}
