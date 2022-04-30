@@ -4,67 +4,67 @@ namespace Chrono
 {
 	class Year  // year in [min:max) range
 	{
-    	static constexpr int min = 1800;
-    	static constexpr int max = 2200;
+    		static constexpr int min = 1800;
+    		static constexpr int max = 2200;
     
-    	public:
-        	class Invalid {};
-       		Year(int x): y{x} {if (x < min || x > max) throw Invalid{};}
-        	int year() { return y; }
-        	void increment() { y++; }
+    		public:
+        		class Invalid {};
+       			Year(int x): y{x} {if (x < min || x > max) throw Invalid{};}
+        		int year() { return y; }
+        		void increment() { y++; }
 	
-    	private:
-        	int y;
+    		private:
+        		int y;
 	};
 
 	Year operator++(Year& year)
 	{
-    	year.increment();
+    		year.increment();
 	}
 
 	ostream& operator<< (ostream& os, Year year)
 	{
-    	return os << year.year();
+    		return os << year.year();
 	}
 
 	const vector<string> months = 
 	{
-    	"January",
-    	"February",
-    	"March",
-    	"April",
-    	"May",
-    	"June",
-    	"July",
-    	"August",
-    	"September",
-    	"October",
-    	"November",
-    	"December"
+    		"January",
+    		"February",
+    		"March",
+    		"April",
+    		"May",
+    		"June",
+    		"July",
+    		"August",
+    		"September",
+    		"October",
+    		"November",
+    		"December"
 	};
 
 	enum class Month
 	{
-    	jan , feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
+    		jan , feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
 	};
 
 
 	Month operator++(Month& m)  // prefix increment operator
 	{
-    	m = (m==Month::dec) ? Month::jan : Month(int(m)+1);
-    	return m;
+    		m = (m==Month::dec) ? Month::jan : Month(int(m)+1);
+    		return m;
 	}
 
 	ostream& operator<<(ostream& os, Month m) //output operator!!!
 	{
-    	return os << months[int(m)];
+    		return os << months[int(m)];
 	}
 
 	class Date
 	{
-    	Year year;
-    	Month month;
-    	int day;
+    		Year year;
+    		Month month;
+    		int day;
     
 		public:
     		class Invalid {};  //user defined data type  Invalid
@@ -78,23 +78,23 @@ namespace Chrono
 
 	bool Date::is_valid()  // check the year and day is valid or not
 	{
-    	if (day < 1 || day > 31)
-        	return false;
-    	return true;
+    		if (day < 1 || day > 31)
+        		return false;
+    		return true;
 	}
 
 	void Date::add_day(int n)
 	{
-    	day += n;
-    	if (day > 31) 
-    	{
+    		day += n;
+    		if (day > 31) 
+    		{
 			++month; // notice here!!if forget, go back and read the example!!
 			day -= 31;
 			if (month == Month::jan)
 			{
 				++year;
 			}
-    	}
+    		}
 	}
 } //end namespace
 
