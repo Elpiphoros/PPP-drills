@@ -47,7 +47,7 @@ try
     int* ip = new int[10];
 
     // 2: Print the values of the ten ints to cout.
-    cout << "task 2: print the 10 ints: ";
+    cout << "task 2: print the 10 ints: \n";
     for (int i = 0; i<10; ++i)
         cout << ip[i] << " " ;
     cout << endl;
@@ -61,7 +61,7 @@ try
     delete[] ip;
     
     // 5: Allocate an array of ten ints on the free store; initialize it with the values 100, 101, 102, etc.; and print out its values.
-    cout << "task 5: print the 10 ints: ";
+    cout << "task 5: print the 10 ints: \n";
     int* ip2 = new int[10];
     for (int i = 0; i<10; ++i) //initialization loop
         ip2[i] = 100 + i;
@@ -70,7 +70,7 @@ try
     delete[] ip2;
     
     // 6: Allocate an array of 11 ints on the free store; initialize it with the values 100, 101, 102, etc.; and print out its values.
-    cout << "task 6: print the 11 ints: ";
+    cout << "task 6: print the 11 ints: \n";
     int* ip3 = new int[11];
     for (int i = 0; i<11; ++i)
         ip3[i] = 100 + i;
@@ -80,7 +80,7 @@ try
     delete[] ip3;
     
     // 8: Allocate an array of 20 ints on the free store; initialize it with the values 100, 101, 102, etc.; and print out its values.
-    cout << "task 8: print the 20 ints: ";
+    cout << "task 8: print the 20 ints: \n";
     int* ip4 = new int[20];
     for (int i = 0; i<20; ++i)
         ip4[i] = 100 + i;
@@ -89,21 +89,19 @@ try
     delete[] ip4;
     
     // 10:  Do 5, 6, and 8 using a vector instead of an array and a print_vector() instead of print_array().
-    cout << "task 10: ";
+    cout << "task 10: \n";
     vector<int> v;
     for (int i = 0; i<10; ++i)
         v.push_back(100+i);
     print_vector(cout,v);
     cout << endl;
 
-    cout << "\n";
     vector<int> v2;
     for (int i = 0; i<11; ++i)
         v2.push_back(100+i);
     print_vector(cout,v2);
     cout << endl;
 
-    cout << "\n";
     vector<int> v3;
     for (int i = 0; i<20; ++i)
         v3.push_back(100+i);
@@ -185,7 +183,7 @@ The second part focuses on pointers and their relation to arrays. Using print_ar
     cout << endl;
 
     // 13: Repeat 10–12 using a vector rather than an array.
-    cout << "task 2.13: ";
+    cout << "task 2.13: \n";
     vector<int> vec1;
     for (int i = 0; i<10; ++i)
         vec1.push_back(pow(2,i));
