@@ -31,7 +31,7 @@ void print_vec(const vector<int>& v)
 
 void f(const vector<int>& v)        //Define a function f() taking a vector<int> argument.
 {
-    vector<int> lv[v.size()];       //Define a local vector<int> lv with the same number of elements as the argument vector.
+    vector<int> lv;       //Define a local vector<int> lv with the same number of elements as the argument vector.
     
     lv = gv;                        //Copy the values from gv into lv.
     
