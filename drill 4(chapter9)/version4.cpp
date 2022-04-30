@@ -105,7 +105,7 @@ Month operator++(Month& m)  // prefix increment operator
     return m;
 }
 
-ostream& operator<<(ostream& os, Month m) //output operator!!!
+ostream& operator<<(ostream& os, Month m) // os << months[int(m)];  ++month
 {
     return os << months[int(m)];
 }
