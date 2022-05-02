@@ -105,9 +105,11 @@ template<class T> void read_val(T& v)
 template<class T> ostream& operator<<(ostream& os, const vector<T>& d)
 {
     os << "{ ";
-    for (int i = 0; i<d.size(); ++i) {
+    for (int i = 0; i<d.size(); ++i)
+    {
         os << d[i];
-        if (i<d.size()-1) os << ',';
+        if (i<d.size()-1) 
+            os << ',';
         os << ' ';
     }
     os << "}";
@@ -121,15 +123,19 @@ template<class T> istream& operator>>(istream& is, vector<T>& d)
     T temp;
     vector<T> v_temp;
     is >> ch1;
-    if (!is) return is;
-    if (ch1!='{') {
+    if (!is) 
+        return is;
+    if (ch1!='{') 
+    {
         is.clear(ios_base::failbit);
         return is;
     }
-    while (cin>>temp>>ch2 && ch2==',') {
+    while (cin>>temp>>ch2 && ch2==',')
+    {
         v_temp.push_back(temp);
     }
-    if (ch2!='}') {
+    if (ch2!='}')
+    {
         is.clear(ios_base::failbit);
         return is;
     }
