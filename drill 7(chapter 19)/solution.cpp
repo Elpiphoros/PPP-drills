@@ -18,7 +18,7 @@ format. That will allow read_val() to also handle the S<vector<int>> variable.
 Remember to test after each step.
 */
 
-#include "../lib_files/std_lib_facilities.h"
+#include "../std_lib_facilities.h"
 
 /*
 情况１：
@@ -156,13 +156,14 @@ try {
     S<vector<int>> s_v_int (vi);     //define the variable of vector named s_v_int
 
     
-    //4: Read those values and print them.
+/*  //4: Read those values and print them.
     cout << "s_int: " << s_int.val << endl;
     cout << "s_char: " << s_char.val << endl;
     cout << "s_dbl: " << s_dbl.val << endl;
     cout << "s_strg: " << s_strg.val << endl;
     for (int i = 0; i<s_v_int.val.size(); ++i)
         cout << "s_v_int[" << i << "]: " << s_v_int.val[i] << endl;
+*/
 
     // 8: Do 4 again using get().
     cout << "s_int: " << s_int.get() << endl;
@@ -179,7 +180,7 @@ try {
     s_strg.set("String2");
     vi[1] = 22;
     s_v_int.set(vi);
-    cout << "\ns_int: " << s_int.get() << emdl;
+    cout << "\ns_int: " << s_int.get() << endl;
     cout << "s_char: " << s_char.get() << endl;
     cout << "s_dbl: " << s_dbl.get() << endl;
     cout << "s_strg: " << s_strg.get() << endl;
